@@ -36,5 +36,25 @@ application:
 toggle_case:
     PUSH {r0, lr}
     LDR  r0, =tekst
-    BL print_asciz
+
+    cmp r0, #65
+    blt return
+
+    cmp r0, #91
+    blt lower
+
+    cmp r0, #122
+    bgt return
+
+    cmp r0, #96
+    bgt upper
+
+lower:
+    add r0, r0, #32
+    b return
+
+upper:
+    sub r0, r0, #32
+
+return:
     POP {r0, pc}
